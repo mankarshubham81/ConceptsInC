@@ -81,6 +81,7 @@ void print(){
     
 }
 
+// reverse a linked list
 void reverse(){
     struct Node *prev, *current, *next;
     prev = NULL;

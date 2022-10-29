@@ -9,19 +9,47 @@ struct Node
     struct Node* link;
 };
 
+struct  Node* head;
 // inser
-void insert(struct Node** head, int value){
-    struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
-    temp->data = value;
-    temp->link = NULL;
-    // head = NULL;
+void insert(int value, int position){
+    struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+    // struct Node* newNode = new Node();
+        newNode->data = value ;
+        newNode->link = NULL;
+    
+    // if (position == 0)
+    // {
+    //     return;
+    // }
+    
 
-    if (head != NULL)
-    {
-        temp->link = *head;
+    if(position == 1){
+        newNode->link = head;
+        head = newNode;
+        return;
     }
 
-    *head = temp;
+    struct Node* temp = head;
+    for (int i = 0; i < position-2; i++){
+        temp = temp->link;
+    }
+    newNode->link = temp->link;
+    temp->link = newNode;
+}
+
+// reverse LInked List Using Recursion
+void reverseUsingRecursion(struct Node* pointerToHead){
+    if (pointerToHead->link == NULL)
+    {
+        head = pointerToHead;
+        return;
+    }
+
+    reverseUsingRecursion(pointerToHead->link);
+    struct Node* q = pointerToHead->link;
+    q->link = pointerToHead;
+    pointerToHead->link = NULL;
+    
 }
 
 void print(struct Node* head){
@@ -35,17 +63,28 @@ void print(struct Node* head){
 int main(int argc, char const *argv[])
 {
 
-    struct  Node* head = NULL;
-    int i,x,n;
+     head = NULL;
+    // int i,x,n;
 
-    printf("Enter how many number of linkedn list node you want : ");
-    scanf("%d",&n);
-    for ( i = 0; i < n; i++)
-    {
-        printf("Enter a number");
-        scanf("%d",&x);
-        insert(&head,x);
+    // printf("Enter how many number of linkedn list node you want : ");
+    // scanf("%d",&n);
+    // for ( i = 0; i < n; i++)
+    // {
+    //     printf("Enter a number");
+    //     scanf("%d",&x);
+    //     insert(&head,x);
+    //     print(head);
+
+    // }
+           insert(30, 1);
+        insert(40, 2);
+        insert(60, 3);
+        printf("LL");
         print(head);
-    }
+
+    reverseUsingRecursion(head);
+    printf("reverse LL Using Recursion is: ");
+    print(head);
+
         return 0;
 }
